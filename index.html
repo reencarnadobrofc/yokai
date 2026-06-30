@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlas Calculadora</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #090708;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      background: #0f0905;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      padding: 30px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      color: #e0b90a;
+      text-shadow: 0 0 18px rgba(235, 230, 230, 0.8);
+    }
+
+    .btn-clear {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 20px;
+      background: #ff5145;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.986);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .section-title {
+      margin-bottom: 18px;
+      font-size: 1.4rem;
+      color: #f7de05;
+      border-bottom: 1px solid rgba(0, 221, 11, 0.35);
+      padding-bottom: 10px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .row label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      font-size: 1rem;
+    }
+
+    .row input[type='text'],
+    .row input[type='number'],
+    .row select,
+    .row button,
+    .row input[type='checkbox'] {
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .row input[type='text'],
+    .row input[type='number'],
+    .row select {
+      background: white;
+      color: black;
+      padding: 10px 14px;
+      min-width: 150px;
+    }
+
+    .row option {
+      color: black;
+      background: white;
+    }
+
+    .row button {
+      min-width: 34px;
+      min-height: 34px;
+      background: rgba(255,255,255,.08);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .row .value {
+      min-width: 110px;
+      text-align: right;
+      font-weight: 700;
+      color: white;
+    }
+
+    .total-box {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      text-align: right;
+    }
+
+    .total-label {
+      color: #b3b3b3;
+      margin-bottom: 8px;
+    }
+
+    .total-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .note {
+      margin-top: 16px;
+      color: #7edbff;
+      font-size: .95rem;
+    }
+
+    .footer {
+      margin-top: 20px;
+      color: #b3b3b3;
+      font-size: 0.95rem;
+      text-align: right;
+    }
+
+    .summary {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .sale-breakdown {
+      margin: 8px 0 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .sale-breakdown .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: #e6e6e6;
+      font-size: .92rem;
+      margin-bottom: 6px;
+    }
+
+    .sale-breakdown .breakdown-item:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="top">
+      <div class="title">Atlas Calculadora</div>
+      <button class="btn-clear" id="clearBtn">Limpar tudo</button>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="section-title">Attachs / Itens</div>
+        <div class="row">
+          <label for="factionAttack">Facção</label>
+          <input type="text" id="factionAttack" placeholder="EX: ESCOCIA" />
+        </div>
+        <div class="row">
+          <label for="itemAttack">Item</label>
+          <input type="text" id="itemAttack" placeholder="EX: ATTACHS" />
+        </div>
+        <div class="row">
+          <label for="partnershipAttack">Parceria</label>
+          <input type="checkbox" id="partnershipAttack" />
+        </div>
+        <div class="row">
+          <span class="value" id="attachUnitPrice">R$ 1.200</span>
+          <label>Valor unitário</label>
+        </div>
+        <div class="row">
+          <label for="qtyAttack">UND</label>
+          <input type="number" id="qtyAttack" min="0" step="1" value="0" />
+        </div>
+        <div class="sale-breakdown">
+          <div class="breakdown-item">
+            <span>80% painel</span>
+            <strong id="attackPanelShare">R$ 0,00</strong>
+          </div>
+          <div class="breakdown-item">
+            <span>20% vendedor</span>
+            <strong id="attackSellerShare">R$ 0,00</strong>
+          </div>
+        </div>
+        <div class="row">
+          <label for="totalAttack">VALOR TOTAL</label>
+          <input type="text" id="totalAttack" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="profitAttack">FAC (80%)</label>
+          <input type="text" id="profitAttack" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="sellerAttack">VENDEDOR (20%)</label>
+          <input type="text" id="sellerAttack" readonly value="R$ 0,00" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Algemas</div>
+        <div class="row">
+          <label for="factionHandcuffs">Facção</label>
+          <input type="text" id="factionHandcuffs" placeholder="EX: ESCOCIA" />
+        </div>
+        <div class="row">
+          <label for="itemHandcuffs">Item</label>
+          <input type="text" id="itemHandcuffs" placeholder="EX: ALGEMAS" />
+        </div>
+        <div class="row">
+          <label for="partnershipHandcuffs">Parceria</label>
+          <input type="checkbox" id="partnershipHandcuffs" />
+        </div>
+        <div class="row">
+          <span class="value" id="handcuffsUnitPrice">R$ 3.600</span>
+          <label>Valor unitário</label>
+        </div>
+        <div class="row">
+          <label for="qtyHandcuffs">UND</label>
+          <input type="number" id="qtyHandcuffs" min="0" step="1" value="0" />
+        </div>
+        <div class="sale-breakdown">
+          <div class="breakdown-item">
+            <span>80% painel</span>
+            <strong id="handcuffsPanelShare">R$ 0,00</strong>
+          </div>
+          <div class="breakdown-item">
+            <span>20% vendedor</span>
+            <strong id="handcuffsSellerShare">R$ 0,00</strong>
+          </div>
+        </div>
+        <div class="row">
+          <label for="totalHandcuffs">VALOR TOTAL</label>
+          <input type="text" id="totalHandcuffs" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="profitHandcuffs">FAC (80%)</label>
+          <input type="text" id="profitHandcuffs" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="sellerHandcuffs">VENDEDOR (20%)</label>
+          <input type="text" id="sellerHandcuffs" readonly value="R$ 0,00" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Capuz</div>
+        <div class="row">
+          <label for="factionHood">Facção</label>
+          <input type="text" id="factionHood" placeholder="EX: YAKUZA" />
+        </div>
+        <div class="row">
+          <label for="itemHood">Item</label>
+          <input type="text" id="itemHood" placeholder="EX: CAPUZ" />
+        </div>
+        <div class="row">
+          <label for="partnershipHood">Parceria</label>
+          <input type="checkbox" id="partnershipHood" />
+        </div>
+        <div class="row">
+          <span class="value" id="hoodUnitPrice">R$ 3.600</span>
+          <label>Valor unitário</label>
+        </div>
+        <div class="row">
+          <label for="qtyHood">UND</label>
+          <input type="number" id="qtyHood" min="0" step="1" value="0" />
+        </div>
+        <div class="sale-breakdown">
+          <div class="breakdown-item">
+            <span>80% painel</span>
+            <strong id="hoodPanelShare">R$ 0,00</strong>
+          </div>
+          <div class="breakdown-item">
+            <span>20% vendedor</span>
+            <strong id="hoodSellerShare">R$ 0,00</strong>
+          </div>
+        </div>
+        <div class="row">
+          <label for="totalHood">VALOR TOTAL</label>
+          <input type="text" id="totalHood" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="profitHood">FAC (80%)</label>
+          <input type="text" id="profitHood" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="sellerHood">VENDEDOR (20%)</label>
+          <input type="text" id="sellerHood" readonly value="R$ 0,00" />
+        </div>
+      </div>
+    </div>
+
+      <!-- Resumo Geral removido conforme solicitado -->
+
+    <div class="footer">
+      Última atualização: <span id="lastUpdate">carregando...</span>
+    </div>
+  </div>
+
+  <script>
+    const money = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+
+    const getInput = (id) => document.getElementById(id);
+    const partnershipAttackCheckbox = getInput('partnershipAttack');
+    const attachQtyInput = getInput('qtyAttack');
+    const attachUnitPriceLabel = getInput('attachUnitPrice');
+    const attachTotalInput = getInput('totalAttack');
+    const profitAttackInput = getInput('profitAttack');
+    const sellerAttackInput = getInput('sellerAttack');
+    const attackPanelShare = getInput('attackPanelShare');
+    const attackSellerShare = getInput('attackSellerShare');
+
+    const partnershipHandcuffsCheckbox = getInput('partnershipHandcuffs');
+    const handcuffsQtyInput = getInput('qtyHandcuffs');
+    const handcuffsUnitPriceLabel = getInput('handcuffsUnitPrice');
+    const handcuffsTotalInput = getInput('totalHandcuffs');
+    const profitHandcuffsInput = getInput('profitHandcuffs');
+    const sellerHandcuffsInput = getInput('sellerHandcuffs');
+    const handcuffsPanelShare = getInput('handcuffsPanelShare');
+    const handcuffsSellerShare = getInput('handcuffsSellerShare');
+
+    const partnershipHoodCheckbox = getInput('partnershipHood');
+    const hoodQtyInput = getInput('qtyHood');
+    const hoodUnitPriceLabel = getInput('hoodUnitPrice');
+    const hoodTotalInput = getInput('totalHood');
+    const profitHoodInput = getInput('profitHood');
+    const sellerHoodInput = getInput('sellerHood');
+    const hoodPanelShare = getInput('hoodPanelShare');
+    const hoodSellerShare = getInput('hoodSellerShare');
+
+    const lastUpdate = getInput('lastUpdate');
+    const clearBtn = getInput('clearBtn');
+
+    const updateAttack = () => {
+      const unitPrice = partnershipAttackCheckbox.checked ? 540 : 600;
+      const qty = Number(attachQtyInput.value) || 0;
+      const totalAttack = qty * unitPrice;
+      const lucroFac = totalAttack * 0.8;
+      const lucroSeller = totalAttack * 0.2;
+      attachUnitPriceLabel.textContent = money(unitPrice);
+      attachTotalInput.value = money(totalAttack);
+      profitAttackInput.value = money(lucroFac);
+      sellerAttackInput.value = money(lucroSeller);
+      attackPanelShare.textContent = money(lucroFac);
+      attackSellerShare.textContent = money(lucroSeller);
+    };
+
+    const updateHandcuffs = () => {
+      const unitPrice = partnershipHandcuffsCheckbox.checked ? 3600 : 4200;
+      const qty = Number(handcuffsQtyInput.value) || 0;
+      const totalHandcuffs = qty * unitPrice;
+      const lucroFac = totalHandcuffs * 0.8;
+      const lucroSeller = totalHandcuffs * 0.2;
+      handcuffsUnitPriceLabel.textContent = money(unitPrice);
+      handcuffsTotalInput.value = money(totalHandcuffs);
+      profitHandcuffsInput.value = money(lucroFac);
+      sellerHandcuffsInput.value = money(lucroSeller);
+      handcuffsPanelShare.textContent = money(lucroFac);
+      handcuffsSellerShare.textContent = money(lucroSeller);
+    };
+
+    const updateHood = () => {
+      const unitPrice = partnershipHoodCheckbox.checked ? 3600 : 4200;
+      const qty = Number(hoodQtyInput.value) || 0;
+      const totalHood = qty * unitPrice;
+      const lucroFac = totalHood * 0.8;
+      const lucroSeller = totalHood * 0.2;
+      hoodUnitPriceLabel.textContent = money(unitPrice);
+      hoodTotalInput.value = money(totalHood);
+      profitHoodInput.value = money(lucroFac);
+      sellerHoodInput.value = money(lucroSeller);
+      hoodPanelShare.textContent = money(lucroFac);
+      hoodSellerShare.textContent = money(lucroSeller);
+    };
+
+    // resumo geral removido; não há mais apresentação do total sugerido
+
+    const updateAll = () => {
+      updateAttack();
+      updateHandcuffs();
+      updateHood();
+    };
+
+    attachQtyInput.addEventListener('input', updateAll);
+    partnershipAttackCheckbox.addEventListener('change', updateAll);
+    handcuffsQtyInput.addEventListener('input', updateAll);
+    partnershipHandcuffsCheckbox.addEventListener('change', updateAll);
+    hoodQtyInput.addEventListener('input', updateAll);
+    partnershipHoodCheckbox.addEventListener('change', updateAll);
+
+    clearBtn.addEventListener('click', () => {
+      getInput('factionAttack').value = '';
+      getInput('itemAttack').value = '';
+      partnershipAttackCheckbox.checked = false;
+      attachQtyInput.value = 0;
+      attachUnitPriceLabel.textContent = money(600);
+      attachTotalInput.value = money(0);
+      profitAttackInput.value = money(0);
+      sellerAttackInput.value = money(0);
+      attackPanelShare.textContent = money(0);
+      attackSellerShare.textContent = money(0);
+
+      getInput('factionHandcuffs').value = '';
+      getInput('itemHandcuffs').value = '';
+      partnershipHandcuffsCheckbox.checked = false;
+      handcuffsQtyInput.value = 0;
+      handcuffsUnitPriceLabel.textContent = money(4200);
+      handcuffsTotalInput.value = money(0);
+      profitHandcuffsInput.value = money(0);
+      sellerHandcuffsInput.value = money(0);
+      handcuffsPanelShare.textContent = money(0);
+      handcuffsSellerShare.textContent = money(0);
+
+      getInput('factionHood').value = '';
+      getInput('itemHood').value = '';
+      partnershipHoodCheckbox.checked = false;
+      hoodQtyInput.value = 0;
+      hoodUnitPriceLabel.textContent = money(4200);
+      hoodTotalInput.value = money(0);
+      profitHoodInput.value = money(0);
+      sellerHoodInput.value = money(0);
+      hoodPanelShare.textContent = money(0);
+      hoodSellerShare.textContent = money(0);
+
+      // resumo geral removido; não há campos de resumo para resetar
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const now = new Date();
+      lastUpdate.textContent = now.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      updateAll();
+    });
+  </script>
+</body>
+</html>
