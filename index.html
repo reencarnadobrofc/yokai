@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #090708;
+      background: linear-gradient(135deg, #05070b 0%, #0a1118 100%);
       color: white;
       min-height: 100vh;
       display: flex;
@@ -18,11 +18,12 @@
 
     .app {
       width: 100%;
-      max-width: 1100px;
-      background: #0f0905;
+      max-width: 1300px;
+      background: linear-gradient(135deg, #0d0d0f 0%, #130b0b 100%);
       border-radius: 24px;
       box-shadow: 0 20px 60px rgba(0,0,0,.45);
       padding: 30px;
+      border: 1px solid rgba(255,255,255,.08);
     }
 
     .top {
@@ -36,18 +37,25 @@
 
     .title {
       font-size: 2.5rem;
-      color: #e0b90a;
-      text-shadow: 0 0 18px rgba(235, 230, 230, 0.8);
+      color: #ff4d4d;
+      text-shadow: 0 0 18px rgba(255,77,77,0.35);
     }
 
     .btn-clear {
       border: none;
       border-radius: 12px;
       padding: 12px 20px;
-      background: #ff5145;
+      background: linear-gradient(135deg, #ff4d4d 0%, #c62828 100%);
       color: white;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 24px;
+      align-items: start;
     }
 
     .grid {
@@ -66,8 +74,8 @@
     .section-title {
       margin-bottom: 18px;
       font-size: 1.4rem;
-      color: #f7de05;
-      border-bottom: 1px solid rgba(0, 221, 11, 0.35);
+      color: #4da3ff;
+      border-bottom: 1px solid rgba(77,163,255,0.35);
       padding-bottom: 10px;
     }
 
@@ -194,16 +202,70 @@
     .sale-breakdown .breakdown-item:last-child {
       margin-bottom: 0;
     }
+
+    .side-panel {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 18px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .side-panel h3 {
+      margin: 0 0 10px;
+      color: #ff4d4d;
+      font-size: 1.1rem;
+    }
+
+    .side-panel p {
+      margin: 0 0 12px;
+      color: #9fb4c9;
+      font-size: .95rem;
+    }
+
+    .side-panel .group {
+      margin-bottom: 12px;
+    }
+
+    .side-panel .group strong {
+      display: block;
+      color: #4da3ff;
+      margin-bottom: 6px;
+      font-size: .95rem;
+    }
+
+    .side-panel ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #e6e6e6;
+      font-size: .9rem;
+    }
+
+    .side-panel li {
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 980px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .side-panel {
+        position: static;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="app">
     <div class="top">
-      <div class="title">Atlas Calculadora</div>
+      <div class="title">Yokai Calculadora</div>
       <button class="btn-clear" id="clearBtn">Limpar tudo</button>
     </div>
 
-    <div class="grid">
+    <div class="content">
+      <div class="grid">
       <div class="card">
         <div class="section-title">Attachs / Itens</div>
         <div class="row">
@@ -341,9 +403,57 @@
           <input type="text" id="sellerHood" readonly value="R$ 0,00" />
         </div>
       </div>
-    </div>
+      </div>
 
-      <!-- Resumo Geral removido conforme solicitado -->
+      <aside class="side-panel">
+        <h3>Atualização de lados - RP</h3>
+        <p>Somos o lado B</p>
+
+        <div class="group">
+          <strong>Lado A – Lince (Rato)</strong>
+          <ul>
+            <li>Pavuna</li>
+            <li>Yakuza</li>
+            <li>Nox 11</li>
+            <li>Nova Era</li>
+            <li>Roxos</li>
+            <li>Rodak</li>
+            <li>Angels</li>
+            <li>Balaclav</li>
+            <li>Dark Angels</li>
+            <li>Atlas</li>
+            <li>Nômade</li>
+            <li>22K</li>
+            <li>Black Honey</li>
+            <li>Vsync</li>
+            <li>A Ordem</li>
+            <li>Albânia</li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <strong>Lado B – Matias (Savio)</strong>
+          <ul>
+            <li>Nexus</li>
+            <li>7Ref</li>
+            <li>Escócia</li>
+            <li>Alcateia</li>
+            <li>Devils</li>
+            <li>Tropa do Capa</li>
+            <li>4M</li>
+            <li>Beyblade</li>
+            <li>Paquistão</li>
+            <li>Fênix</li>
+            <li>Blue Dragons</li>
+            <li>Street</li>
+            <li>D27</li>
+            <li>Hard</li>
+            <li>DarkSide</li>
+            <li>Yokai</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
 
     <div class="footer">
       Última atualização: <span id="lastUpdate">carregando...</span>
