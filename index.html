@@ -267,48 +267,48 @@
     <div class="content">
       <div class="grid">
       <div class="card">
-        <div class="section-title">Attachs / Itens</div>
+        <div class="section-title">Drogas</div>
         <div class="row">
           <label for="factionAttack">Facção</label>
           <input type="text" id="factionAttack" placeholder="EX: ESCOCIA" />
         </div>
         <div class="row">
           <label for="itemAttack">Item</label>
-          <input type="text" id="itemAttack" placeholder="EX: ATTACHS" />
+          <input type="text" id="itemAttack" placeholder="EX: MACONHA" />
         </div>
         <div class="row">
           <label for="partnershipAttack">Parceria</label>
           <input type="checkbox" id="partnershipAttack" />
         </div>
         <div class="row">
-          <span class="value" id="attachUnitPrice">R$ 1.200</span>
+          <span class="value" id="drugsUnitPrice">R$ 600</span>
           <label>Valor unitário</label>
         </div>
         <div class="row">
-          <label for="qtyAttack">UND</label>
-          <input type="number" id="qtyAttack" min="0" step="1" value="0" />
+          <label for="qtyDrugs">UND</label>
+          <input type="number" id="qtyDrugs" min="0" step="1" value="0" />
         </div>
         <div class="sale-breakdown">
           <div class="breakdown-item">
             <span>80% painel</span>
-            <strong id="attackPanelShare">R$ 0,00</strong>
+            <strong id="drugsPanelShare">R$ 0,00</strong>
           </div>
           <div class="breakdown-item">
             <span>20% vendedor</span>
-            <strong id="attackSellerShare">R$ 0,00</strong>
+            <strong id="drugsSellerShare">R$ 0,00</strong>
           </div>
         </div>
         <div class="row">
-          <label for="totalAttack">VALOR TOTAL</label>
-          <input type="text" id="totalAttack" readonly value="R$ 0,00" />
+          <label for="totalDrugs">VALOR TOTAL</label>
+          <input type="text" id="totalDrugs" readonly value="R$ 0,00" />
         </div>
         <div class="row">
-          <label for="profitAttack">FAC (80%)</label>
-          <input type="text" id="profitAttack" readonly value="R$ 0,00" />
+          <label for="profitDrugs">FAC (80%)</label>
+          <input type="text" id="profitDrugs" readonly value="R$ 0,00" />
         </div>
         <div class="row">
-          <label for="sellerAttack">VENDEDOR (20%)</label>
-          <input type="text" id="sellerAttack" readonly value="R$ 0,00" />
+          <label for="sellerDrugs">VENDEDOR (20%)</label>
+          <input type="text" id="sellerDrugs" readonly value="R$ 0,00" />
         </div>
       </div>
 
@@ -464,14 +464,14 @@
     const money = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 
     const getInput = (id) => document.getElementById(id);
-    const partnershipAttackCheckbox = getInput('partnershipAttack');
-    const attachQtyInput = getInput('qtyAttack');
-    const attachUnitPriceLabel = getInput('attachUnitPrice');
-    const attachTotalInput = getInput('totalAttack');
-    const profitAttackInput = getInput('profitAttack');
-    const sellerAttackInput = getInput('sellerAttack');
-    const attackPanelShare = getInput('attackPanelShare');
-    const attackSellerShare = getInput('attackSellerShare');
+    const partnershipDrugsCheckbox = getInput('partnershipAttack');
+    const drugsQtyInput = getInput('qtyDrugs');
+    const drugsUnitPriceLabel = getInput('drugsUnitPrice');
+    const drugsTotalInput = getInput('totalDrugs');
+    const profitDrugsInput = getInput('profitDrugs');
+    const sellerDrugsInput = getInput('sellerDrugs');
+    const drugsPanelShare = getInput('drugsPanelShare');
+    const drugsSellerShare = getInput('drugsSellerShare');
 
     const partnershipHandcuffsCheckbox = getInput('partnershipHandcuffs');
     const handcuffsQtyInput = getInput('qtyHandcuffs');
@@ -494,18 +494,18 @@
     const lastUpdate = getInput('lastUpdate');
     const clearBtn = getInput('clearBtn');
 
-    const updateAttack = () => {
-      const unitPrice = partnershipAttackCheckbox.checked ? 540 : 600;
-      const qty = Number(attachQtyInput.value) || 0;
-      const totalAttack = qty * unitPrice;
-      const lucroFac = totalAttack * 0.8;
-      const lucroSeller = totalAttack * 0.2;
-      attachUnitPriceLabel.textContent = money(unitPrice);
-      attachTotalInput.value = money(totalAttack);
-      profitAttackInput.value = money(lucroFac);
-      sellerAttackInput.value = money(lucroSeller);
-      attackPanelShare.textContent = money(lucroFac);
-      attackSellerShare.textContent = money(lucroSeller);
+    const updateDrugs = () => {
+      const unitPrice = partnershipDrugsCheckbox.checked ? 540 : 600;
+      const qty = Number(drugsQtyInput.value) || 0;
+      const totalDrugs = qty * unitPrice;
+      const lucroFac = totalDrugs * 0.8;
+      const lucroSeller = totalDrugs * 0.2;
+      drugsUnitPriceLabel.textContent = money(unitPrice);
+      drugsTotalInput.value = money(totalDrugs);
+      profitDrugsInput.value = money(lucroFac);
+      sellerDrugsInput.value = money(lucroSeller);
+      drugsPanelShare.textContent = money(lucroFac);
+      drugsSellerShare.textContent = money(lucroSeller);
     };
 
     const updateHandcuffs = () => {
@@ -539,13 +539,13 @@
     // resumo geral removido; não há mais apresentação do total sugerido
 
     const updateAll = () => {
-      updateAttack();
+      updateDrugs();
       updateHandcuffs();
       updateHood();
     };
 
-    attachQtyInput.addEventListener('input', updateAll);
-    partnershipAttackCheckbox.addEventListener('change', updateAll);
+    drugsQtyInput.addEventListener('input', updateAll);
+    partnershipDrugsCheckbox.addEventListener('change', updateAll);
     handcuffsQtyInput.addEventListener('input', updateAll);
     partnershipHandcuffsCheckbox.addEventListener('change', updateAll);
     hoodQtyInput.addEventListener('input', updateAll);
@@ -554,14 +554,14 @@
     clearBtn.addEventListener('click', () => {
       getInput('factionAttack').value = '';
       getInput('itemAttack').value = '';
-      partnershipAttackCheckbox.checked = false;
-      attachQtyInput.value = 0;
-      attachUnitPriceLabel.textContent = money(600);
-      attachTotalInput.value = money(0);
-      profitAttackInput.value = money(0);
-      sellerAttackInput.value = money(0);
-      attackPanelShare.textContent = money(0);
-      attackSellerShare.textContent = money(0);
+      partnershipDrugsCheckbox.checked = false;
+      drugsQtyInput.value = 0;
+      drugsUnitPriceLabel.textContent = money(600);
+      drugsTotalInput.value = money(0);
+      profitDrugsInput.value = money(0);
+      sellerDrugsInput.value = money(0);
+      drugsPanelShare.textContent = money(0);
+      drugsSellerShare.textContent = money(0);
 
       getInput('factionHandcuffs').value = '';
       getInput('itemHandcuffs').value = '';
