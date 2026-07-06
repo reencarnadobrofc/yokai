@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yokai Calculadora</title>
+  <title>Atlas Calculadora</title>
   <style>
     body {
       margin: 0;
@@ -269,25 +269,25 @@
     <div class="content">
       <div class="grid">
       <div class="card">
-        <div class="section-title">Drogas</div>
+        <div class="section-title">Munição Pistola - 100x</div>
         <div class="row">
           <label for="factionAttack">Facção</label>
           <input type="text" id="factionAttack" placeholder="EX: ESCOCIA" />
         </div>
         <div class="row">
           <label for="itemAttack">Item</label>
-          <input type="text" id="itemAttack" placeholder="EX: MACONHA" />
+          <input type="text" id="itemAttack" placeholder="EX: PISTOLA" />
         </div>
         <div class="row">
           <label for="partnershipAttack">Parceria</label>
           <input type="checkbox" id="partnershipAttack" />
         </div>
         <div class="row">
-          <span class="value" id="drugsUnitPrice">R$ 600</span>
+          <span class="value" id="drugsUnitPrice">R$ 4.200</span>
           <label>Valor unitário</label>
         </div>
         <div class="row">
-          <label for="qtyDrugs">UND</label>
+          <label for="qtyDrugs">CAIXA</label>
           <input type="number" id="qtyDrugs" min="0" step="1" value="0" />
         </div>
         <div class="sale-breakdown">
@@ -315,25 +315,25 @@
       </div>
 
       <div class="card">
-        <div class="section-title">Algemas</div>
+        <div class="section-title">Munição SMG - 200x</div>
         <div class="row">
           <label for="factionHandcuffs">Facção</label>
           <input type="text" id="factionHandcuffs" placeholder="EX: ESCOCIA" />
         </div>
         <div class="row">
           <label for="itemHandcuffs">Item</label>
-          <input type="text" id="itemHandcuffs" placeholder="EX: ALGEMAS" />
+          <input type="text" id="itemHandcuffs" placeholder="EX: SMG" />
         </div>
         <div class="row">
           <label for="partnershipHandcuffs">Parceria</label>
           <input type="checkbox" id="partnershipHandcuffs" />
         </div>
         <div class="row">
-          <span class="value" id="handcuffsUnitPrice">R$ 3.600</span>
+          <span class="value" id="handcuffsUnitPrice">R$ 9.600</span>
           <label>Valor unitário</label>
         </div>
         <div class="row">
-          <label for="qtyHandcuffs">UND</label>
+          <label for="qtyHandcuffs">CAIXA</label>
           <input type="number" id="qtyHandcuffs" min="0" step="1" value="0" />
         </div>
         <div class="sale-breakdown">
@@ -361,25 +361,25 @@
       </div>
 
       <div class="card">
-        <div class="section-title">Capuz</div>
+        <div class="section-title">Munição Fuzil - 250x</div>
         <div class="row">
           <label for="factionHood">Facção</label>
           <input type="text" id="factionHood" placeholder="EX: YAKUZA" />
         </div>
         <div class="row">
           <label for="itemHood">Item</label>
-          <input type="text" id="itemHood" placeholder="EX: CAPUZ" />
+          <input type="text" id="itemHood" placeholder="EX: FUZIL" />
         </div>
         <div class="row">
           <label for="partnershipHood">Parceria</label>
           <input type="checkbox" id="partnershipHood" />
         </div>
         <div class="row">
-          <span class="value" id="hoodUnitPrice">R$ 3.600</span>
+          <span class="value" id="hoodUnitPrice">R$ 14.400</span>
           <label>Valor unitário</label>
         </div>
         <div class="row">
-          <label for="qtyHood">UND</label>
+          <label for="qtyHood">CAIXA</label>
           <input type="number" id="qtyHood" min="0" step="1" value="0" />
         </div>
         <div class="sale-breakdown">
@@ -403,6 +403,52 @@
         <div class="row">
           <label for="sellerHood">VENDEDOR (20%)</label>
           <input type="text" id="sellerHood" readonly value="R$ 0,00" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Placa Balística</div>
+        <div class="row">
+          <label for="factionArmor">Facção</label>
+          <input type="text" id="factionArmor" placeholder="EX: YAKUZA" />
+        </div>
+        <div class="row">
+          <label for="itemArmor">Item</label>
+          <input type="text" id="itemArmor" placeholder="EX: COLETE" />
+        </div>
+        <div class="row">
+          <label for="partnershipArmor">Parceria</label>
+          <input type="checkbox" id="partnershipArmor" />
+        </div>
+        <div class="row">
+          <span class="value" id="armorUnitPrice">R$ 4.200</span>
+          <label>Valor unitário</label>
+        </div>
+        <div class="row">
+          <label for="qtyArmor">UND</label>
+          <input type="number" id="qtyArmor" min="0" step="1" value="0" />
+        </div>
+        <div class="sale-breakdown">
+          <div class="breakdown-item">
+            <span>80% painel</span>
+            <strong id="armorPanelShare">R$ 0,00</strong>
+          </div>
+          <div class="breakdown-item">
+            <span>20% vendedor</span>
+            <strong id="armorSellerShare">R$ 0,00</strong>
+          </div>
+        </div>
+        <div class="row">
+          <label for="totalArmor">VALOR TOTAL</label>
+          <input type="text" id="totalArmor" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="profitArmor">FAC (80%)</label>
+          <input type="text" id="profitArmor" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="sellerArmor">VENDEDOR (20%)</label>
+          <input type="text" id="sellerArmor" readonly value="R$ 0,00" />
         </div>
       </div>
       </div>
@@ -493,11 +539,20 @@
     const hoodPanelShare = getInput('hoodPanelShare');
     const hoodSellerShare = getInput('hoodSellerShare');
 
+    const partnershipArmorCheckbox = getInput('partnershipArmor');
+    const armorQtyInput = getInput('qtyArmor');
+    const armorUnitPriceLabel = getInput('armorUnitPrice');
+    const armorTotalInput = getInput('totalArmor');
+    const profitArmorInput = getInput('profitArmor');
+    const sellerArmorInput = getInput('sellerArmor');
+    const armorPanelShare = getInput('armorPanelShare');
+    const armorSellerShare = getInput('armorSellerShare');
+
     const lastUpdate = getInput('lastUpdate');
     const clearBtn = getInput('clearBtn');
 
     const updateDrugs = () => {
-      const unitPrice = partnershipDrugsCheckbox.checked ? 540 : 600;
+      const unitPrice = partnershipDrugsCheckbox.checked ? 4800 : 4200;
       const qty = Number(drugsQtyInput.value) || 0;
       const totalDrugs = qty * unitPrice;
       const lucroFac = totalDrugs * 0.8;
@@ -511,7 +566,7 @@
     };
 
     const updateHandcuffs = () => {
-      const unitPrice = partnershipHandcuffsCheckbox.checked ? 3600 : 4200;
+      const unitPrice = partnershipHandcuffsCheckbox.checked ? 9600 : 10200;
       const qty = Number(handcuffsQtyInput.value) || 0;
       const totalHandcuffs = qty * unitPrice;
       const lucroFac = totalHandcuffs * 0.8;
@@ -525,7 +580,7 @@
     };
 
     const updateHood = () => {
-      const unitPrice = partnershipHoodCheckbox.checked ? 3600 : 4200;
+      const unitPrice = partnershipHoodCheckbox.checked ? 13200 : 14400;
       const qty = Number(hoodQtyInput.value) || 0;
       const totalHood = qty * unitPrice;
       const lucroFac = totalHood * 0.8;
@@ -538,12 +593,25 @@
       hoodSellerShare.textContent = money(lucroSeller);
     };
 
-    // resumo geral removido; não há mais apresentação do total sugerido
+    const updateArmor = () => {
+      const unitPrice = partnershipArmorCheckbox.checked ? 3600 : 4200;
+      const qty = Number(armorQtyInput.value) || 0;
+      const totalArmor = qty * unitPrice;
+      const lucroFac = totalArmor * 0.8;
+      const lucroSeller = totalArmor * 0.2;
+      armorUnitPriceLabel.textContent = money(unitPrice);
+      armorTotalInput.value = money(totalArmor);
+      profitArmorInput.value = money(lucroFac);
+      sellerArmorInput.value = money(lucroSeller);
+      armorPanelShare.textContent = money(lucroFac);
+      armorSellerShare.textContent = money(lucroSeller);
+    };
 
     const updateAll = () => {
       updateDrugs();
       updateHandcuffs();
       updateHood();
+      updateArmor();
     };
 
     drugsQtyInput.addEventListener('input', updateAll);
@@ -552,13 +620,15 @@
     partnershipHandcuffsCheckbox.addEventListener('change', updateAll);
     hoodQtyInput.addEventListener('input', updateAll);
     partnershipHoodCheckbox.addEventListener('change', updateAll);
+    armorQtyInput.addEventListener('input', updateAll);
+    partnershipArmorCheckbox.addEventListener('change', updateAll);
 
     clearBtn.addEventListener('click', () => {
       getInput('factionAttack').value = '';
       getInput('itemAttack').value = '';
       partnershipDrugsCheckbox.checked = false;
       drugsQtyInput.value = 0;
-      drugsUnitPriceLabel.textContent = money(600);
+      drugsUnitPriceLabel.textContent = money(4200);
       drugsTotalInput.value = money(0);
       profitDrugsInput.value = money(0);
       sellerDrugsInput.value = money(0);
@@ -569,7 +639,7 @@
       getInput('itemHandcuffs').value = '';
       partnershipHandcuffsCheckbox.checked = false;
       handcuffsQtyInput.value = 0;
-      handcuffsUnitPriceLabel.textContent = money(4200);
+      handcuffsUnitPriceLabel.textContent = money(10200);
       handcuffsTotalInput.value = money(0);
       profitHandcuffsInput.value = money(0);
       sellerHandcuffsInput.value = money(0);
@@ -580,14 +650,23 @@
       getInput('itemHood').value = '';
       partnershipHoodCheckbox.checked = false;
       hoodQtyInput.value = 0;
-      hoodUnitPriceLabel.textContent = money(4200);
+      hoodUnitPriceLabel.textContent = money(14400);
       hoodTotalInput.value = money(0);
       profitHoodInput.value = money(0);
       sellerHoodInput.value = money(0);
       hoodPanelShare.textContent = money(0);
       hoodSellerShare.textContent = money(0);
 
-      // resumo geral removido; não há campos de resumo para resetar
+      getInput('factionArmor').value = '';
+      getInput('itemArmor').value = '';
+      partnershipArmorCheckbox.checked = false;
+      armorQtyInput.value = 0;
+      armorUnitPriceLabel.textContent = money(4200);
+      armorTotalInput.value = money(0);
+      profitArmorInput.value = money(0);
+      sellerArmorInput.value = money(0);
+      armorPanelShare.textContent = money(0);
+      armorSellerShare.textContent = money(0);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
