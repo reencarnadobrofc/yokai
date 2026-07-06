@@ -552,7 +552,7 @@
     const clearBtn = getInput('clearBtn');
 
     const updateDrugs = () => {
-      const unitPrice = partnershipDrugsCheckbox.checked ? 4800 : 4200;
+      const unitPrice = partnershipDrugsCheckbox.checked ? 4200 : 4800;
       const qty = Number(drugsQtyInput.value) || 0;
       const totalDrugs = qty * unitPrice;
       const lucroFac = totalDrugs * 0.8;
