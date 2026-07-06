@@ -275,15 +275,11 @@
           <input type="text" id="factionAttack" placeholder="EX: ESCOCIA" />
         </div>
         <div class="row">
-          <label for="itemAttack">Item</label>
-          <input type="text" id="itemAttack" placeholder="EX: PISTOLA" />
-        </div>
-        <div class="row">
           <label for="partnershipAttack">Parceria</label>
           <input type="checkbox" id="partnershipAttack" />
         </div>
         <div class="row">
-          <span class="value" id="drugsUnitPrice">R$ 4.200</span>
+          <span class="value" id="drugsUnitPrice">R$ 4.800</span>
           <label>Valor unitário</label>
         </div>
         <div class="row">
@@ -319,10 +315,6 @@
         <div class="row">
           <label for="factionHandcuffs">Facção</label>
           <input type="text" id="factionHandcuffs" placeholder="EX: ESCOCIA" />
-        </div>
-        <div class="row">
-          <label for="itemHandcuffs">Item</label>
-          <input type="text" id="itemHandcuffs" placeholder="EX: SMG" />
         </div>
         <div class="row">
           <label for="partnershipHandcuffs">Parceria</label>
@@ -367,15 +359,11 @@
           <input type="text" id="factionHood" placeholder="EX: YAKUZA" />
         </div>
         <div class="row">
-          <label for="itemHood">Item</label>
-          <input type="text" id="itemHood" placeholder="EX: FUZIL" />
-        </div>
-        <div class="row">
           <label for="partnershipHood">Parceria</label>
           <input type="checkbox" id="partnershipHood" />
         </div>
         <div class="row">
-          <span class="value" id="hoodUnitPrice">R$ 14.400</span>
+          <span class="value" id="hoodUnitPrice">R$ 13.800</span>
           <label>Valor unitário</label>
         </div>
         <div class="row">
@@ -411,10 +399,6 @@
         <div class="row">
           <label for="factionArmor">Facção</label>
           <input type="text" id="factionArmor" placeholder="EX: YAKUZA" />
-        </div>
-        <div class="row">
-          <label for="itemArmor">Item</label>
-          <input type="text" id="itemArmor" placeholder="EX: COLETE" />
         </div>
         <div class="row">
           <label for="partnershipArmor">Parceria</label>
@@ -580,7 +564,7 @@
     };
 
     const updateHood = () => {
-      const unitPrice = partnershipHoodCheckbox.checked ? 13200 : 14400;
+      const unitPrice = partnershipHoodCheckbox.checked ? 13200 : 13800;
       const qty = Number(hoodQtyInput.value) || 0;
       const totalHood = qty * unitPrice;
       const lucroFac = totalHood * 0.8;
@@ -625,7 +609,6 @@
 
     clearBtn.addEventListener('click', () => {
       getInput('factionAttack').value = '';
-      getInput('itemAttack').value = '';
       partnershipDrugsCheckbox.checked = false;
       drugsQtyInput.value = 0;
       drugsUnitPriceLabel.textContent = money(4200);
@@ -636,7 +619,6 @@
       drugsSellerShare.textContent = money(0);
 
       getInput('factionHandcuffs').value = '';
-      getInput('itemHandcuffs').value = '';
       partnershipHandcuffsCheckbox.checked = false;
       handcuffsQtyInput.value = 0;
       handcuffsUnitPriceLabel.textContent = money(10200);
@@ -647,10 +629,9 @@
       handcuffsSellerShare.textContent = money(0);
 
       getInput('factionHood').value = '';
-      getInput('itemHood').value = '';
       partnershipHoodCheckbox.checked = false;
       hoodQtyInput.value = 0;
-      hoodUnitPriceLabel.textContent = money(14400);
+      hoodUnitPriceLabel.textContent = money(13800);
       hoodTotalInput.value = money(0);
       profitHoodInput.value = money(0);
       sellerHoodInput.value = money(0);
@@ -658,7 +639,6 @@
       hoodSellerShare.textContent = money(0);
 
       getInput('factionArmor').value = '';
-      getInput('itemArmor').value = '';
       partnershipArmorCheckbox.checked = false;
       armorQtyInput.value = 0;
       armorUnitPriceLabel.textContent = money(4200);
