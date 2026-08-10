@@ -329,6 +329,13 @@
           <label for="grandSeller">20% VENDEDOR</label>
           <input type="text" id="grandSeller" readonly value="R$ 0,00" />
         </div>
+        <div class="row">
+          <label>Resumo de itens vendidos</label>
+          <div id="soldList" style="min-width:150px; text-align:right; color:#e6e6e6;
+            background: rgba(0,0,0,0.04); padding:8px 10px; border-radius:12px;">
+            Nenhum item selecionado
+          </div>
+        </div>
       </div>
 
       <div class="card">
@@ -609,6 +616,7 @@
     const grandTotalInput = getInput('grandTotal');
     const grandPanelInput = getInput('grandPanel');
     const grandSellerInput = getInput('grandSeller');
+    const soldList = getInput('soldList');
 
     const lastUpdate = getInput('lastUpdate');
     const clearBtn = getInput('clearBtn');
@@ -700,6 +708,28 @@
       grandTotalInput.value = money(grand);
       grandPanelInput.value = money(panel);
       grandSellerInput.value = money(seller);
+
+      // Build sold items summary (quantities and item totals)
+      const items = [];
+      const unitDrugs = partnershipDrugsCheckbox.checked ? 4200 : 4800;
+      const unitHandcuffs = partnershipHandcuffsCheckbox.checked ? 9600 : 10200;
+      const unitHood = partnershipHoodCheckbox.checked ? 13200 : 13800;
+      const unit556 = partnership556Checkbox.checked ? 15800 : 16400;
+      const unitArmor = partnershipArmorCheckbox.checked ? 3600 : 4200;
+
+      const qDrugs = Number(drugsQtyInput.value) || 0;
+      const qHandcuffs = Number(handcuffsQtyInput.value) || 0;
+      const qHood = Number(hoodQtyInput.value) || 0;
+      const q556 = Number(qty556Input.value) || 0;
+      const qArmor = Number(armorQtyInput.value) || 0;
+
+      if (qDrugs > 0) items.push(`${qDrugs}x Pistola 100x — ${money(qDrugs * unitDrugs)}`);
+      if (qHandcuffs > 0) items.push(`${qHandcuffs}x SMG 200x — ${money(qHandcuffs * unitHandcuffs)}`);
+      if (qHood > 0) items.push(`${qHood}x Fuzil 250x — ${money(qHood * unitHood)}`);
+      if (q556 > 0) items.push(`${q556}x 556 250x — ${money(q556 * unit556)}`);
+      if (qArmor > 0) items.push(`${qArmor}x Colete — ${money(qArmor * unitArmor)}`);
+
+      soldList.innerHTML = items.length ? items.join('<br>') : 'Nenhum item selecionado';
     };
 
     drugsQtyInput.addEventListener('input', updateAll);
