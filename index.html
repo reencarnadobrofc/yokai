@@ -73,6 +73,11 @@
       padding: 24px;
     }
 
+    .total-summary {
+      border-left: 4px solid #4da3ff;
+      background: linear-gradient(180deg, rgba(6,10,14,0.95), rgba(12,8,8,0.95));
+    }
+
     .section-title {
       margin-bottom: 18px;
       font-size: 1.4rem;
@@ -310,6 +315,22 @@
         </div>
       </div>
 
+      <div class="card total-summary" id="grandSummary">
+        <div class="section-title">Total Geral de Munições</div>
+        <div class="row">
+          <label for="grandTotal">VALOR BRUTO</label>
+          <input type="text" id="grandTotal" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="grandPanel">80% PAINEL</label>
+          <input type="text" id="grandPanel" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="grandSeller">20% VENDEDOR</label>
+          <input type="text" id="grandSeller" readonly value="R$ 0,00" />
+        </div>
+      </div>
+
       <div class="card">
         <div class="section-title">Munição SMG - 200x</div>
         <div class="row">
@@ -391,6 +412,48 @@
         <div class="row">
           <label for="sellerHood">VENDEDOR (20%)</label>
           <input type="text" id="sellerHood" readonly value="R$ 0,00" />
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Munição 556 - 250x</div>
+        <div class="row">
+          <label for="faction556">Facção</label>
+          <input type="text" id="faction556" placeholder="EX: YOKAI" />
+        </div>
+        <div class="row">
+          <label for="partnership556">Parceria</label>
+          <input type="checkbox" id="partnership556" />
+        </div>
+        <div class="row">
+          <span class="value" id="five56UnitPrice">R$ 15.800</span>
+          <label>Valor unitário</label>
+        </div>
+        <div class="row">
+          <label for="qty556">CAIXA</label>
+          <input type="number" id="qty556" min="0" step="1" value="0" />
+        </div>
+        <div class="sale-breakdown">
+          <div class="breakdown-item">
+            <span>80% painel</span>
+            <strong id="five56PanelShare">R$ 0,00</strong>
+          </div>
+          <div class="breakdown-item">
+            <span>20% vendedor</span>
+            <strong id="five56SellerShare">R$ 0,00</strong>
+          </div>
+        </div>
+        <div class="row">
+          <label for="total556">VALOR TOTAL</label>
+          <input type="text" id="total556" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="profit556">FAC (80%)</label>
+          <input type="text" id="profit556" readonly value="R$ 0,00" />
+        </div>
+        <div class="row">
+          <label for="seller556">VENDEDOR (20%)</label>
+          <input type="text" id="seller556" readonly value="R$ 0,00" />
         </div>
       </div>
 
@@ -534,6 +597,19 @@
     const armorPanelShare = getInput('armorPanelShare');
     const armorSellerShare = getInput('armorSellerShare');
 
+    const partnership556Checkbox = getInput('partnership556');
+    const qty556Input = getInput('qty556');
+    const five56UnitPriceLabel = getInput('five56UnitPrice');
+    const total556Input = getInput('total556');
+    const profit556Input = getInput('profit556');
+    const seller556Input = getInput('seller556');
+    const five56PanelShare = getInput('five56PanelShare');
+    const five56SellerShare = getInput('five56SellerShare');
+
+    const grandTotalInput = getInput('grandTotal');
+    const grandPanelInput = getInput('grandPanel');
+    const grandSellerInput = getInput('grandSeller');
+
     const lastUpdate = getInput('lastUpdate');
     const clearBtn = getInput('clearBtn');
 
@@ -549,6 +625,22 @@
       sellerDrugsInput.value = money(lucroSeller);
       drugsPanelShare.textContent = money(lucroFac);
       drugsSellerShare.textContent = money(lucroSeller);
+      return totalDrugs;
+    };
+
+    const updateFive56 = () => {
+      const unitPrice = partnership556Checkbox.checked ? 15800 : 16400;
+      const qty = Number(qty556Input.value) || 0;
+      const total = qty * unitPrice;
+      const lucroFac = total * 0.8;
+      const lucroSeller = total * 0.2;
+      five56UnitPriceLabel.textContent = money(unitPrice);
+      total556Input.value = money(total);
+      profit556Input.value = money(lucroFac);
+      seller556Input.value = money(lucroSeller);
+      five56PanelShare.textContent = money(lucroFac);
+      five56SellerShare.textContent = money(lucroSeller);
+      return total;
     };
 
     const updateHandcuffs = () => {
@@ -563,6 +655,7 @@
       sellerHandcuffsInput.value = money(lucroSeller);
       handcuffsPanelShare.textContent = money(lucroFac);
       handcuffsSellerShare.textContent = money(lucroSeller);
+      return totalHandcuffs;
     };
 
     const updateHood = () => {
@@ -577,6 +670,7 @@
       sellerHoodInput.value = money(lucroSeller);
       hoodPanelShare.textContent = money(lucroFac);
       hoodSellerShare.textContent = money(lucroSeller);
+      return totalHood;
     };
 
     const updateArmor = () => {
@@ -591,13 +685,21 @@
       sellerArmorInput.value = money(lucroSeller);
       armorPanelShare.textContent = money(lucroFac);
       armorSellerShare.textContent = money(lucroSeller);
+      return totalArmor;
     };
 
     const updateAll = () => {
-      updateDrugs();
-      updateHandcuffs();
-      updateHood();
-      updateArmor();
+      const t1 = updateDrugs() || 0;
+      const t2 = updateHandcuffs() || 0;
+      const t3 = updateHood() || 0;
+      const t4 = updateFive56() || 0;
+      const t5 = updateArmor() || 0;
+      const grand = t1 + t2 + t3 + t4 + t5;
+      const panel = grand * 0.8;
+      const seller = grand * 0.2;
+      grandTotalInput.value = money(grand);
+      grandPanelInput.value = money(panel);
+      grandSellerInput.value = money(seller);
     };
 
     drugsQtyInput.addEventListener('input', updateAll);
@@ -606,6 +708,8 @@
     partnershipHandcuffsCheckbox.addEventListener('change', updateAll);
     hoodQtyInput.addEventListener('input', updateAll);
     partnershipHoodCheckbox.addEventListener('change', updateAll);
+    qty556Input.addEventListener('input', updateAll);
+    partnership556Checkbox.addEventListener('change', updateAll);
     armorQtyInput.addEventListener('input', updateAll);
     partnershipArmorCheckbox.addEventListener('change', updateAll);
 
@@ -640,6 +744,16 @@
       hoodPanelShare.textContent = money(0);
       hoodSellerShare.textContent = money(0);
 
+      getInput('faction556').value = '';
+      partnership556Checkbox.checked = false;
+      qty556Input.value = 0;
+      five56UnitPriceLabel.textContent = money(15800);
+      total556Input.value = money(0);
+      profit556Input.value = money(0);
+      seller556Input.value = money(0);
+      five56PanelShare.textContent = money(0);
+      five56SellerShare.textContent = money(0);
+
       getInput('factionArmor').value = '';
       partnershipArmorCheckbox.checked = false;
       armorQtyInput.value = 0;
@@ -649,6 +763,7 @@
       sellerArmorInput.value = money(0);
       armorPanelShare.textContent = money(0);
       armorSellerShare.textContent = money(0);
+      updateAll();
     });
 
     document.addEventListener('DOMContentLoaded', () => {
