@@ -389,23 +389,9 @@
             <label for="valorLavagem">VALOR BRUTO</label>
             <input type="number" id="valorLavagem" min="0" step="100" value="0" />
           </div>
-          <div class="sale-breakdown">
-            <div class="breakdown-item">
-              <span>Cliente (70%)</span>
-              <strong id="lavagemClientShare">R$ 0,00</strong>
-            </div>
-            <div class="breakdown-item">
-              <span>Nós (30%)</span>
-              <strong id="lavagemOurShare">R$ 0,00</strong>
-            </div>
-          </div>
           <div class="row">
-            <label for="clientLavagem">70% PARA O CLIENTE</label>
+            <label for="clientLavagem">VALOR PARA O CLIENTE (70%)</label>
             <input type="text" id="clientLavagem" readonly value="R$ 0,00" />
-          </div>
-          <div class="row">
-            <label for="ourLavagem">30% NÓS</label>
-            <input type="text" id="ourLavagem" readonly value="R$ 0,00" />
           </div>
         </div>
 
@@ -459,18 +445,6 @@
       <div class="card total-summary" id="grandSummary">
         <div class="section-title">Resumo total</div>
         <div class="row">
-          <label for="grandTotal">VALOR BRUTO</label>
-          <input type="text" id="grandTotal" readonly value="R$ 0,00" />
-        </div>
-        <div class="row">
-          <label for="grandClient">70% CLIENTE</label>
-          <input type="text" id="grandClient" readonly value="R$ 0,00" />
-        </div>
-        <div class="row">
-          <label for="grandUs">30% NÓS</label>
-          <input type="text" id="grandUs" readonly value="R$ 0,00" />
-        </div>
-        <div class="row">
           <label>Resumo de itens</label>
           <div id="soldList" style="min-width:150px; text-align:right; color:#e6e6e6;
             background: rgba(0,0,0,0.04); padding:8px 10px; border-radius:12px;">
@@ -481,15 +455,16 @@
 
       <aside class="side-panel">
         <h3>Regra do novo produto</h3>
-        <p>Lavagem com taxa de 30% para lavem de dinheiro e +18 e 70% vai para o cliente. e todo o valor de comissão é pago pela Liderança e gerencia</p>
+        <p>Na lavagem de dinheiro, 70% fica com o cliente e 30% com a FAC. Nos itens +18, 70% fica com o cliente e 30% conosco. A comissão é paga pela liderança e gerência.</p>
 
         <div class="group">
           <strong>Valores</strong>
           <ul>
             <li>Mochila com parceria: R$ 24.000</li>
             <li>Mochila sem parceria: R$ 36.000</li>
-            <li>Taxa da lavagem: 30%</li>
-            <li>Cliente recebe: 70%</li>
+            <li>Lavagem de dinheiro: 70% para o cliente e 30% para a FAC</li>
+            <li>Taxa dos itens +18: 30%</li>
+            <li>Cliente recebe nos itens +18: 70%</li>
           </ul>
         </div>
       </aside>
@@ -513,9 +488,6 @@
 
     const valorLavagemInput = getInput('valorLavagem');
     const clientLavagemInput = getInput('clientLavagem');
-    const ourLavagemInput = getInput('ourLavagem');
-    const lavagemClientShare = getInput('lavagemClientShare');
-    const lavagemOurShare = getInput('lavagemOurShare');
 
     const partnershipBackpackCheckbox = getInput('partnershipBackpack');
     const backpackQtyInput = getInput('qtyBackpack');
@@ -528,9 +500,6 @@
     const item18ClientShare = getInput('item18ClientShare');
     const item18OurShare = getInput('item18OurShare');
 
-    const grandTotalInput = getInput('grandTotal');
-    const grandClientInput = getInput('grandClient');
-    const grandUsInput = getInput('grandUs');
     const soldList = getInput('soldList');
 
     const lastUpdate = getInput('lastUpdate');
@@ -538,14 +507,7 @@
 
     const updateLavagem = () => {
       const total = Number(valorLavagemInput.value) || 0;
-      const clientShare = total * 0.7;
-      const ourShare = total * 0.3;
-
-      clientLavagemInput.value = money(clientShare);
-      ourLavagemInput.value = money(ourShare);
-      lavagemClientShare.textContent = money(clientShare);
-      lavagemOurShare.textContent = money(ourShare);
-      return total;
+      clientLavagemInput.value = money(total * 0.7);
     };
 
     const updateBackpack = () => {
@@ -555,7 +517,6 @@
 
       backpackUnitPriceLabel.textContent = money(unitPrice);
       totalBackpackInput.value = money(total);
-      return total;
     };
 
     const updateItem18 = () => {
@@ -567,20 +528,12 @@
       ourItem18Input.value = money(ourShare);
       item18ClientShare.textContent = money(clientShare);
       item18OurShare.textContent = money(ourShare);
-      return total;
     };
 
     const updateAll = () => {
-      const t1 = updateLavagem() || 0;
-      const t2 = updateBackpack() || 0;
-      const t3 = updateItem18() || 0;
-      const grand = t1 + t2 + t3;
-      const client = grand * 0.7;
-      const us = grand * 0.3;
-
-      grandTotalInput.value = money(grand);
-      grandClientInput.value = money(client);
-      grandUsInput.value = money(us);
+      updateLavagem();
+      updateBackpack();
+      updateItem18();
 
       const items = [];
       const valorLavagem = Number(valorLavagemInput.value) || 0;
@@ -611,9 +564,6 @@
     clearBtn.addEventListener('click', () => {
       valorLavagemInput.value = 0;
       clientLavagemInput.value = money(0);
-      ourLavagemInput.value = money(0);
-      lavagemClientShare.textContent = money(0);
-      lavagemOurShare.textContent = money(0);
 
       partnershipBackpackCheckbox.checked = false;
       backpackQtyInput.value = 0;
@@ -626,9 +576,6 @@
       item18ClientShare.textContent = money(0);
       item18OurShare.textContent = money(0);
 
-      grandTotalInput.value = money(0);
-      grandClientInput.value = money(0);
-      grandUsInput.value = money(0);
       soldList.textContent = 'Nenhum item selecionado';
       updateAll();
     });
